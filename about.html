@@ -82,12 +82,12 @@ footer {
 				</figure>
 				<p>
 					This can get
-					<ul>
-						<li><strong class="bad">Expensive</strong> &mdash; Servers aren't cheap, and your costs can go up exponentially as your player base grows</li>
-						<li><strong class="bad">Complex</strong> &mdash; How do you keep your players synced up properly? How do you fight cheating? How do you avoid replication across your client and server codebases?</li>
-						<li><strong class="bad">Limiting</strong> &mdash; What if you wanted to build an MMO? Now you have to think about sharding and load balancing. Your game goes viral, suddenly your servers are overwhelmed and now you have to think about provisioning, when you could instead be working on your game!</li>
-					</ul>
 				</p>
+				<ul>
+					<li><strong class="bad">Expensive</strong> &mdash; Servers aren't cheap, and your costs can go up exponentially as your player base grows</li>
+					<li><strong class="bad">Complex</strong> &mdash; How do you keep your players synced up properly? How do you fight cheating? How do you avoid replication across your client and server codebases?</li>
+					<li><strong class="bad">Limiting</strong> &mdash; What if you wanted to build an MMO? Now you have to think about sharding and load balancing. Your game goes viral, suddenly your servers are overwhelmed and now you have to think about provisioning, when you could instead be working on your game!</li>
+				</ul>
 				<h2>Peer-to-peer</h2>
 				<p>
 					With <a href="https://webrtc.org/" target="_blank">WebRTC</a> starting to see widespread support, and the standards settling, we can finally cut out the middle man and have players communicate directly over a mesh network!
@@ -105,6 +105,16 @@ footer {
 				<figure>
 					<img src="img/ours.svg" alt="libfabric multiplayer architecture"/>
 				</figure>
+				<p>
+					libfabric will dynamically reconnect peers in topologies optimising for:
+				</p>
+				<ul>
+					<li>Virtual position</li>
+					<li>Network conditions</li>
+					<li>Reputation</li>
+					<li>Longevity</li>
+					<li>Additional custom metrics</li>
+				</ul>
 				<p>
 					libfabric additonally supports 8 different P2P topologies, ranging from superpeer to Delaunay triangulation-based topologies, and allows you to network behaviour to your liking, depending on the genre of game you're developing. If you're interested in the technical details, <a href="https://calendly.com/yousefamar" target="_blank">let's have a chat</a>!
 				</p>

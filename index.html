@@ -150,7 +150,10 @@ footer {
 })();</code></pre>
 
 				<p>
-					The second is using <code class="language-js">room.syncedData</code> which is an object that will automatically propagate and sync across the network. Newer updates always take priority over older updates. Since 80% of traffic for the majority of games is position updates <code class="language-js">peerNet.interpolate</code> can be used to watch coordinates and apply configurable predicition/interpolation to these.
+					The second is using <code class="language-js">room.syncedData</code> which is an object that will automatically propagate and sync across the network. Newer updates always take priority over older updates.
+				<p>
+				</p>
+					Since 80% of traffic for the majority of games is position updates, each of <code class="language-js">peerNet.peers[].pos</code> can be used to set/get peer virtual positions. These coordinates are special as they affect the way topologies are computed, and have configurable, game-specific optimisations (such as prediction/interpolation) applied to them.
 				</p>
 
 				<h1>Pricing</h1>
