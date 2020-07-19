@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>libfabric</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/default.min.css">
+		<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<style type="text/css" media="screen">
+@import url('https://fonts.googleapis.com/css2?family=Cuprum&display=swap');
+
+:root {
+	--base-col: linen;
+	--dark: #B59C83;
+	--light: white;
+	--logo-col: var(--dark);
+	--logo-stroke: var(--light);
+}
+
+*:not(code):not(span) {
+	font-family: 'Cuprum', sans-serif;
+}
+h1, h2 {
+	text-align: center;
+}
+main {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+main figure {
+	text-align: center;
+}
+footer {
+	text-align: center;
+	color: grey;
+}
+.button {
+	background-color: var(--dark);
+}
+
+.bad {
+	color: darkred;
+}
+
+.hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+	background: var(--base-col);
+	background-image: url("img/black-linen.png"), radial-gradient(circle, var(--base-col), var(--dark));
+}
+.hero h1 {
+	font-size: 2.5em;
+}
+.hero .logo {
+	height: 10%;
+	--logo-stroke: var(--base-col);
+}
+.notice {
+	background-color: lightyellow;
+}
+.card header {
+	text-align: center;
+}
+.card header h2 {
+	margin: 0;
+}
+.pricing-image {
+	width: 10%;
+}
+		</style>
+	</head>
+	<body>
+		<header>
+			<nav style="position: relative; z-index: 9">
+				<a href="/" class="brand">
+					<svg class="logo" viewBox="0 0 4.0512223 4.409225">
+						<use href="img/logo.svg#layer1"></use>
+					</svg>
+					<span>libfabric</span>
+				</a>
+
+				<input id="bmenub" type="checkbox" class="show">
+				<label for="bmenub" class="burger pseudo button toggle">☰</label>
+
+				<div class="menu">
+					<a href="/about.html" class="pseudo button icon-picture">About</a>
+					<a href="https://github.com/yousefamar/p2p-peer" class="button icon-puzzle">Use</a>
+				</div>
+			</nav>
+
+			<div class="hero">
+				<svg class="logo" viewBox="0 0 4.0512223 4.409225">
+					<use href="img/logo.svg#layer1"></use>
+				</svg>
+				<h1>libfabric</h1>
+				<h2>Scalable multiplayer for the web</h2>
+			</div>
+		</header>
+
+		<main>
+			<section>
+				<h1>About</h1>
+				<p>
+					<strong>libfabric</strong> is a JavaScript library for peer-to-peer browser game networking. It's <strong>free</strong>, <strong>easy to use</strong>, and <strong>ridiculously scalable</strong>. It was developed with the goal of leveling the playing field for indie developers and small game studios who are limited in labour and money. Click <a href="/about.html" target="_blank">here</a> to learn more about the technical details.
+				</p>
+
+				<h1>Installation</h1>
+
+				<p>If you're using a bundler like webpack or Browserify,</p>
+
+				<pre><code class="plaintext">npm install yousefamar/p2p-peer</code></pre>
+
+				otherwise you can simply include the library through a CDN
+
+				<pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/gh/yousefamar/p2p-peer/pkg/dist-web/index.min.js"&gt;&lt;/script&gt;</code></pre>
+
+				<h1>Usage</h1>
+
+				<div class="notice"><strong>Warning:</strong> libfabric is still in beta, and full documentation of methods and events is coming soon!</div>
+
+				<p>There are two layers of abstraction with which you can use libfabric. The first is to basically treat it as a server with "rooms" as namespaces through which you can broadcast events with arbitrary names and arbitrary objects that can be serialized into JSON.</p>
+
+				<pre><code class="language-js">import PeerNetwork from 'libfabric';
+
+(async () => {
+	const peerNet = new PeerNetwork();
+	await peerNet.connect('https://libfabric.io'); // or https://sig.amar.io
+
+	peerNet.on('connection', peer => {
+		console.log('Peer', peer.uid, 'connected');
+
+		peer.on('greeting', msg => console.log('Peer', peer.uid + ':', msg));
+
+		peer.on('disconnect', () => console.log('Peer', peer.uid, 'disconnected'));
+	});
+
+	peerNet.on('uid', uid => {
+		console.log(uid);
+
+		let room = peerNet.join('test');
+		room.eventEmitter.on('.', console.log);
+	});
+
+})();</code></pre>
+
+				<p>
+					The second is using <code class="language-js">room.syncedData</code> which is an object that will automatically propagate and sync across the network. Newer updates always take priority over older updates. Since 80% of traffic for the majority of games is position updates <code class="language-js">peerNet.interpolate</code> can be used to watch coordinates and apply configurable predicition/interpolation to these.
+				</p>
+
+				<h1>Pricing</h1>
+
+				<p>
+					libfabric is <strong>absolutely free</strong> if you host your own <a href="https://github.com/yousefamar/p2p-sig-serv" target="_blank">signalling server</a>. If you don't, it's still completely free if you're an indie developer or small game studio, if your game does not make any money, or if your game is open source. Otherwise, we divide usage into three plans:
+				</p>
+
+				<div class="flex one three-800">
+					<article class="card">
+						<header>
+							<svg class="pricing-image" viewBox="0 0 6.8645822 6.8645892">
+								<use href="img/cotton.svg#layer1"></use>
+							</svg>
+							<br />
+							<h2>Cotton</h2>
+						</header>
+						<ul>
+							<li>Unlimited use</li>
+							<li>No API key needed</li>
+							<li>Completely connected topologies</li>
+							<li>Superpeer topologies</li>
+							<li>Best for &lt; 10 players per room</li>
+						</ul>
+						<footer>
+							<a href="https://github.com/yousefamar/p2p-peer" class="button icon-puzzle">Use</a>
+						</footer>
+					</article>
+					<article class="card">
+						<header>
+							<svg class="pricing-image" viewBox="0 0 12.156254 12.15625">
+								<use href="img/linen.svg#layer1"></use>
+							</svg>
+							<br />
+							<h2>Linen</h2>
+						</header>
+						<ul>
+							<li>Unlimited use</li>
+							<li>All cotton topologies</li>
+							<li>AOI topologies</li>
+							<li>Proprietary topologies</li>
+							<li>Up to 50 players per room</li>
+						</ul>
+						<footer>
+							<a href="https://calendly.com/yousefamar" class="button icon-puzzle">Contact</a>
+						</footer>
+					</article>
+					<article class="card">
+						<header>
+							<svg class="pricing-image" viewBox="0 0 22.739582 22.739586">
+								<use href="img/silk.svg#layer1"></use>
+							</svg>
+							<br />
+							<h2>Silk</h2>
+						</header>
+						<ul>
+							<li>Unlimited use</li>
+							<li>All cotton and linen topologies</li>
+							<li>&infin; players per room</li>
+							<li>Dedicated signalling server</li>
+							<li>24 / 7 support</li>
+						</ul>
+						<footer>
+							<a href="https://calendly.com/yousefamar" class="button icon-puzzle">Contact</a>
+						</footer>
+					</article>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<p>
+				&copy; <script>document.write(new Date().getFullYear())</script> libfabric
+			</p>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>libfabric</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+		<style type="text/css" media="screen">
+@import url('https://fonts.googleapis.com/css2?family=Cuprum&display=swap');
+
+:root {
+	--base-col: linen;
+	--dark: #B59C83;
+	--light: white;
+	--accent: #8F989B;
+	--logo-col: var(--dark);
+	--logo-stroke: var(--light);
+}
+
+* {
+	font-family: 'Cuprum', sans-serif;
+}
+h1 {
+	text-align: center;
+}
+main {
+	max-width: 900px;
+	margin: 0 auto;
+}
+main figure {
+	text-align: center;
+}
+footer {
+	text-align: center;
+	color: grey;
+}
+.button {
+	background-color: var(--dark);
+}
+
+.bad {
+	color: darkred;
+}
+		</style>
+	</head>
+	<body>
+		<header>
+			<nav style="position: relative; z-index: 9">
+				<a href="/" class="brand">
+					<svg class="logo" viewBox="0 0 4.0512223 4.409225">
+						<use href="img/logo.svg#layer1"></use>
+					</svg>
+					<span>libfabric</span>
+				</a>
+
+				<input id="bmenub" type="checkbox" class="show">
+				<label for="bmenub" class="burger pseudo button toggle">☰</label>
+
+				<div class="menu">
+					<a href="/about.html" class="pseudo button icon-picture">About</a>
+					<a href="https://github.com/yousefamar/p2p-peer" class="button icon-puzzle">Use</a>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			<section>
+				<h1>About</h1>
+				<p>
+					<strong>libfabric</strong> is a JavaScript library for peer-to-peer browser game networking. It's <strong>free</strong>, <strong>easy to use</strong>, and <strong>ridiculously scalable</strong>. It was developed with the goal of leveling the playing field for indie developers and small game studios who are limited in labour and money.
+				</p>
+				<h2>The cloud model</h2>
+				<p>
+					Traditionally, if you wanted to networked your browser game, you would have to use something like WebSockets and a cloud server.
+				</p>
+				<figure>
+					<img src="img/cloud.svg" alt="Cloud multiplayer architecture"/>
+				</figure>
+				<p>
+					This can get
+					<ul>
+						<li><strong class="bad">Expensive</strong> &mdash; Servers aren't cheap, and your costs can go up exponentially as your player base grows</li>
+						<li><strong class="bad">Complex</strong> &mdash; How do you keep your players synced up properly? How do you fight cheating? How do you avoid replication across your client and server codebases?</li>
+						<li><strong class="bad">Limiting</strong> &mdash; What if you wanted to build an MMO? Now you have to think about sharding and load balancing. Your game goes viral, suddenly your servers are overwhelmed and now you have to think about provisioning, when you could instead be working on your game!</li>
+					</ul>
+				</p>
+				<h2>Peer-to-peer</h2>
+				<p>
+					With <a href="https://webrtc.org/" target="_blank">WebRTC</a> starting to see widespread support, and the standards settling, we can finally cut out the middle man and have players communicate directly over a mesh network!
+				</p>
+				<figure>
+					<img src="img/p2p.svg" alt="P2P multiplayer architecture"/>
+				</figure>
+				<p>
+					But wait! Isn't that <i>less</i> scalable? Now 5 players need to send duplicate data across a total of 10 connections. 50 players over 1225 connections! No browser can handle that! That's where the magic comes in...
+				</p>
+				<h2>libfabric</h2>
+				<p>
+					Figuring out how to connect peers in a way that is fault-tolerant, performant, and infinitely scalable, is a monumental task. The algorithms libfabric uses are directly based on the PhD research of <a href="https://yousefamar.com" target="_blank">Yousef Amar</a> whose solutions can be tuned to any game genre and mitigate cheating.
+				</p>
+				<figure>
+					<img src="img/ours.svg" alt="libfabric multiplayer architecture"/>
+				</figure>
+				<p>
+					libfabric additonally supports 8 different P2P topologies, ranging from superpeer to Delaunay triangulation-based topologies, and allows you to network behaviour to your liking, depending on the genre of game you're developing. If you're interested in the technical details, <a href="https://calendly.com/yousefamar" target="_blank">let's have a chat</a>!
+				</p>
+			</section>
+		</main>
+
+		<footer>
+			<p>
+				&copy; <script>document.write(new Date().getFullYear())</script> libfabric
+			</p>
+		</footer>
+	</body>
+</html>
